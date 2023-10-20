@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevControlsMAUI", "DevControlsMAUI\DevControlsMAUI.csproj", "{377CF49A-5EC9-4C30-944C-998F6D94458E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDevControlsMAUI", "UIDevControlsMAUI\UIDevControlsMAUI.csproj", "{C6E6A513-9DA2-44D3-8960-6B77A2930C98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{377CF49A-5EC9-4C30-944C-998F6D94458E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{377CF49A-5EC9-4C30-944C-998F6D94458E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377CF49A-5EC9-4C30-944C-998F6D94458E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{377CF49A-5EC9-4C30-944C-998F6D94458E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E6A513-9DA2-44D3-8960-6B77A2930C98}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22BF965C-DB3D-49E8-B50C-F88AFEBD0012}
+	EndGlobalSection
+EndGlobal
