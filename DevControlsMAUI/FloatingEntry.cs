@@ -1,12 +1,16 @@
+
+using Microsoft.Maui.Converters;
+using System.ComponentModel;
+
 namespace DevControlsMAUI;
 
 public class FloatingEntry : ContentView
 {
     private const int _placeholderFontSize = 18;
-    private const int _titleFontSize = 12;
+    private const int _titleFontSize = 15;
     private const int _topMargin = -24;
     readonly Entry Field = new Entry();
-    readonly Label LabelTitle = new Label();
+    readonly Label LabelTitle = new Label() { VerticalOptions = LayoutOptions.Center };
     TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
 
 
@@ -17,8 +21,13 @@ public class FloatingEntry : ContentView
         tapGestureRecognizer.Tapped += (s, e) => Field.Focus();
         LabelTitle.GestureRecognizers.Add(tapGestureRecognizer);
 
+        #region SetBindings
         Field.SetBinding(Entry.TextProperty, new Binding(nameof(Text), BindingMode.TwoWay, source: this));
+        Field.SetBinding(Entry.IsPasswordProperty, new Binding(nameof(IsPassword), BindingMode.TwoWay, source: this));
+        Field.SetBinding(Entry.KeyboardProperty, new Binding(nameof(KeyBoard), BindingMode.TwoWay, source: this));
+
         LabelTitle.SetBinding(Label.TextProperty, new Binding(nameof(Title), BindingMode.TwoWay, source: this));
+        #endregion
 
         Content = new Grid
         {
@@ -26,8 +35,15 @@ public class FloatingEntry : ContentView
         };
     }
 
+    #region BindableProperties
+
     public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(FloatingEntry), string.Empty, BindingMode.TwoWay, null, HandleBindingPropertyChangedDelegate);
-    public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(string), "SetTheTitle", BindingMode.TwoWay, null);
+    public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(FloatingEntry), "SetTheTitle", BindingMode.TwoWay, null);
+    public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(FloatingEntry), default, BindingMode.TwoWay, null);
+    public static readonly BindableProperty KeyBoardProperty = BindableProperty.Create(nameof(KeyBoard), typeof(Keyboard), typeof(FloatingEntry), default, BindingMode.TwoWay, null);
+
+    #endregion
+    #region Properties
 
     public string Text
     {
@@ -39,20 +55,32 @@ public class FloatingEntry : ContentView
         get => (string)GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
+    public bool IsPassword
+    {
+        get => (bool)GetValue(IsPasswordProperty);
+        set => SetValue(IsPasswordProperty, value);
+    }
+
+    //[TypeConverter(typeof(KeyboardTypeConverter))]
+    public Keyboard KeyBoard
+    {
+        get => (Keyboard)GetValue(KeyBoardProperty);
+        set => SetValue(KeyBoardProperty, value);
+    }
+
+    #endregion
+    #region EventHandlers
 
     async void Handle_Focused(object sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text))
-        {
-            await TransitionToTitle(true);
-        }
+            await TransitionToTitle();
     }
+
     async void Handle_Unfocused(object sender, FocusEventArgs e)
     {
         if (string.IsNullOrEmpty(Text))
-        {
             await TransitionToPlaceholder(true);
-        }
     }
 
     static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
@@ -62,7 +90,7 @@ public class FloatingEntry : ContentView
         {
             if (!string.IsNullOrEmpty((string)newValue))
             {
-                await control.TransitionToTitle(false);
+                await control.TransitionToTitle();
             }
             else
             {
@@ -71,35 +99,20 @@ public class FloatingEntry : ContentView
         }
 
     }
-    async Task TransitionToTitle(bool animated)
+    #endregion
+    #region Methods
+
+    async Task TransitionToTitle()
     {
-        if (animated)
-        {
-            var t1 = LabelTitle.TranslateTo(0, _topMargin, 100);
-            var t2 = SizeTo(_titleFontSize);
-            await Task.WhenAll(t1, t2);
-        }
-        else
-        {
-            LabelTitle.TranslationX = 0;
-            LabelTitle.TranslationY = -30;
-            LabelTitle.FontSize = 14;
-        }
+        var t1 = LabelTitle.TranslateTo(10, _topMargin, 100);
+        var t2 = SizeTo(_titleFontSize);
+        await Task.WhenAll(t1, t2);
     }
     async Task TransitionToPlaceholder(bool animated)
     {
-        if (animated)
-        {
-            var t1 = LabelTitle.TranslateTo(10, 0, 100);
-            var t2 = SizeTo(_placeholderFontSize);
-            await Task.WhenAll(t1, t2);
-        }
-        else
-        {
-            LabelTitle.TranslationX = 10;
-            LabelTitle.TranslationY = 0;
-            LabelTitle.FontSize = _placeholderFontSize;
-        }
+        var t1 = LabelTitle.TranslateTo(10, 0, 100);
+        var t2 = SizeTo(_placeholderFontSize);
+        await Task.WhenAll(t1, t2);
     }
     Task SizeTo(int fontSize)
     {
@@ -117,5 +130,7 @@ public class FloatingEntry : ContentView
         {
             LabelTitle.FontSize = input;
         }
-    }
+    } 
+    #endregion
+
 }

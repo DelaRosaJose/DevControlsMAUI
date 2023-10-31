@@ -11,24 +11,7 @@
             Spacing="25"
             VerticalOptions="Center">
 
-            <Image
-                HeightRequest="200"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                Source="dotnet_bot.png" />
-
-            <Label
-                FontSize="32"
-                HorizontalOptions="Center"
-                SemanticProperties.HeadingLevel="Level1"
-                Text="Hello, World!" />
-
-            <Label
-                FontSize="18"
-                HorizontalOptions="Center"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                SemanticProperties.HeadingLevel="Level7"
-                Text="Welcome to .NET Multi-platform App UI" />
+            <Entry Keyboard="Numeric" />
 
             <Button
                 x:Name="CounterBtn"
@@ -38,7 +21,10 @@
                 Text="Click me" />
 
 
-            <controls:FloatingEntry Title="Usuario" Text="{Binding Nombre}" />
+            <controls:FloatingEntry
+                Title="Usuario"
+                KeyBoard="Numeric"
+                Text="sss" />
 
 
         </VerticalStackLayout>
